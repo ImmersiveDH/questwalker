@@ -3,10 +3,11 @@ A Drupal base theme using Bootstrap 5 to build custom mapping/rich media/AR web 
 
 [Bootstrap 5](https://www.drupal.org/project/bootstrap5) subtheme.
 
-## Development.
+## Development
 
-### CSS compilation.
 
+
+### CSS compilation
 Prerequisites: install [sass](https://sass-lang.com/install).
 
 To compile, run from subtheme directory: `sass scss/style.scss css/style.css && sass scss/ck5style.scss css/ck5style.css`

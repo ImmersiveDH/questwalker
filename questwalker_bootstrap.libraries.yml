@@ -5,11 +5,13 @@ global-styling:
       libraries/leaflet.markercluster/dist/MarkerCluster.css: {}
       libraries/leaflet.markercluster/dist/MarkerCluster.Default.css: {}
       libraries/leaflet.fullscreen/Control.FullScreen.css: {}
+      libraries/leaflet.locatecontrol/dist/L.Control.Locate.min.css: {}
       css/style.css: {}
   js:
     libraries/leaflet/leaflet.js: {}
     libraries/leaflet.markercluster/dist/leaflet.markercluster.js: {}
     libraries/leaflet.fullscreen/Control.FullScreen.js: {}
+    libraries/leaflet.locatecontrol/dist/L.Control.Locate.min.js: {}
     js/scripts.js: {}
   dependencies:
     - core/drupal
