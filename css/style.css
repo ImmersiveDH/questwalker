@@ -12750,7 +12750,56 @@ code {
 }
 
 #map {
-  height: 500px;
+  min-height: 500px;
+  position: relative;
+  width: 100%;
+}
+
+#map-inner {
+  position: absolute;
+  min-height: 500px;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+body.leaflet-full-viewport .flex-column {
+  position: relative;
+}
+body.leaflet-full-viewport main,
+body.leaflet-full-viewport .container,
+body.leaflet-full-viewport .region-sidebar-first, body.leaflet-full-viewport .region-sidebar-second, body.leaflet-full-viewport .region-footer, body.leaflet-full-viewport .region-content,
+body.leaflet-full-viewport .view-locations-on-this-tour-leaflet {
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+body.leaflet-full-viewport header,
+body.leaflet-full-viewport .block-system-breadcrumb-block,
+body.leaflet-full-viewport footer {
+  display: none;
+}
+body.leaflet-full-viewport .region-content > div {
+  display: none;
+}
+body.leaflet-full-viewport .region-content > div#block-views-block-locations-on-this-tour-leaflet-block-1 {
+  display: block;
+}
+body.leaflet-full-viewport .region-content > div#block-views-block-locations-on-this-tour-leaflet-block-1 > h2, body.leaflet-full-viewport .region-content > div#block-views-block-locations-on-this-tour-leaflet-block-1 > .h2 {
+  display: none;
+}
+body.leaflet-full-viewport #map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 100;
 }
 
 /*# sourceMappingURL=style.css.map */

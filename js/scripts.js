@@ -24,14 +24,14 @@
 
       // 1. Add the map container
       if ($('#map').length == 0) {
-        $('.view-locations-on-this-tour-leaflet').append('<div id="map"></div>');
+        $('.view-locations-on-this-tour-leaflet').append('<div id="map"><div id="map-inner"></div></div>');
       }
       else {
         console.log("Warning: There's already a #map div. Figure out why.");
       }
 
       // 2. Start map at location
-      var map = L.map('map', {
+      var leaflet_map = L.map('map-inner', {
         fullscreenControl: true,
         fullscreenControlOptions: {
           position: 'topleft'
@@ -40,9 +40,9 @@
 
       // 3. Add tiles to the map.
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          maxZoom: 19,
-          attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      }).addTo(map);
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(leaflet_map);
 
       // 4. Iterate through markers and add to map.
       var marker_locations = [];
@@ -65,7 +65,7 @@
         if (coordinates_geojson.type == "Point") {
           console.log(location_title + " is a point. Adding a marker at " + coordinates_geojson.coordinates[1], coordinates_geojson.coordinates[0]);
           var marker = new L.marker([coordinates_geojson.coordinates[1], coordinates_geojson.coordinates[0]])
-            .addTo(map)
+            .addTo(leaflet_map)
             .bindPopup(location_title)
             .on('click', function(e) {
               console.log(e.latlng);
@@ -74,51 +74,89 @@
 
         }
         else if (coordinates_geojson.type == "Polygon") {
-          console.log(location_title + " is a polygon. Adding a polygon.");
+          var latlng = [];
+          latlng = coordinates_geojson.coordinates;
+
+          // GeoJSON expects Longitude/Latitude, so we have to iterate through the latlng array to fix it.
+          for (let i = 0; i < latlng[0].length; i++) {
+            console.log("Reformatting lat/long " + latlng[0][i]);
+            latlng[0][i].reverse();
+            console.log("Reformatted to GeoJSON long/lat: " + latlng[0][i]);
+          }
+
+          console.log(location_title + " is a polygon. Adding a polygon: " + JSON.stringify(latlng));
+
+          var polygon = L.polygon(latlng, { color: 'red'})
+            .addTo(leaflet_map)
+            .bindPopup(location_title)
+            .on('click', function(e) {
+              console.log(e.latlng);
+            });
+
+          // Iterate through all the coordinates of the polygon in order to get the marker bounds.
+          for (let i = 0; i < latlng.length; i++) {
+            marker_locations.push([latlng[i]]);
+          }
+          console.log(marker_locations);
         }
       });
 
-      // 5. Reposition view over the markers.
-      map.fitBounds(marker_locations);
+      // 5. Reposition view over the markers. (If there are markers.);
+      if (marker_locations.length > 0) {
+        leaflet_map.fitBounds(marker_locations);
 
-
-      // 6. Add the "Zoom to current location" button.
-      L.control.locate().addTo(map);
-
-      // 7. Add the "Reset view" button
-      var customControl = L.Control.extend({ options: {position: 'topleft'},onAdd: function (map) {
-      var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
-
-      onAdd: function (map) {
-          var container = L.DomUtil.create('input','my-button btn');
-          container.type="button";
-          container.title="x";
-          container.value = "x";
-          container.label = "x";
-
-          container.style.backgroundColor = 'white';
-
-          container.style.backgroundSize = "30px 30px";
-          container.style.width = '40px';
-          container.style.height = '40px';
-          container.style.borderRadius = "25px";
-          container.style.padding = "0";
-          container.style.margin = "10px";
-
-      container.onclick = function(){
-        console.log('buttonClicked');
+        // 5a. Add the "zoom to markerclusters" easybutton
+        L.easyButton('fa-refresh', function(btn, map){
+          leaflet_map.fitBounds(marker_locations);
+        }).addTo(leaflet_map);
       }
 
-      return container;}});
+      // 6. Add the "Zoom to current location" button.
+      L.control.locate().addTo(leaflet_map);
+
+      // 7. Add the "fill viewport" button
+      L.easyButton('fa-window-maximize', function(btn, map){
+        $('body').toggleClass('leaflet-full-viewport');
+      }).addTo(leaflet_map);
+
+
+      // 9. Resize the map when its container resizes.
+      const resizeObserver = new ResizeObserver(() => {
+        leaflet_map.invalidateSize();
+      });
+      resizeObserver.observe(map);
+
 
       // Add MarkerCluster
       // var markercluster = L.markerClusterGroup();
       // markercluster.addLayer(marker_locations);
-      // map.addLayer(markercluster);
+      // leaflet_map.addLayer(markercluster);
     }
 
 
     // TODO: insert other cases where we would want to initialize Leaflet
   }
+
+  // set the view back to normal (exit AR mode, etc.)
+  function resetView() {
+    console.log("View resetting.");
+    // 1. Close fullscreen map
+    // (It just does this, we don't have to do anything.)
+
+    // 2. Close full-size viewport map
+    $('body').removeClass('leaflet-full-viewport');
+
+    // 3. turn off AR mode
+    // TODO: do this.
+  }
+
+  // run anywhere
+  $(document).keyup(function(e) {
+    if(e.key === "Escape") {
+      console.log("Pressed escape.")
+      resetView();
+    }
+  });
+
 
 })(jQuery, Drupal, once);

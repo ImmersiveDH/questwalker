@@ -10915,7 +10915,54 @@ a > .ck-content code {
   overflow-y: auto;
 }
 .ck-content #map {
-  height: 500px;
+  min-height: 500px;
+  position: relative;
+  width: 100%;
+}
+.ck-content #map-inner {
+  position: absolute;
+  min-height: 500px;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+.ck-content body.leaflet-full-viewport .flex-column {
+  position: relative;
+}
+.ck-content body.leaflet-full-viewport main,
+.ck-content body.leaflet-full-viewport .container,
+.ck-content body.leaflet-full-viewport .region-sidebar-first, .ck-content body.leaflet-full-viewport .region-sidebar-second, .ck-content body.leaflet-full-viewport .region-footer, .ck-content body.leaflet-full-viewport .region-content,
+.ck-content body.leaflet-full-viewport .view-locations-on-this-tour-leaflet {
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.ck-content body.leaflet-full-viewport header,
+.ck-content body.leaflet-full-viewport .block-system-breadcrumb-block,
+.ck-content body.leaflet-full-viewport footer {
+  display: none;
+}
+.ck-content body.leaflet-full-viewport .region-content > div {
+  display: none;
+}
+.ck-content body.leaflet-full-viewport .region-content > div#block-views-block-locations-on-this-tour-leaflet-block-1 {
+  display: block;
+}
+.ck-content body.leaflet-full-viewport .region-content > div#block-views-block-locations-on-this-tour-leaflet-block-1 > h2, .ck-content body.leaflet-full-viewport .region-content > div#block-views-block-locations-on-this-tour-leaflet-block-1 > .h2 {
+  display: none;
+}
+.ck-content body.leaflet-full-viewport #map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 100;
 }
 
 /*# sourceMappingURL=ck5style.css.map */
