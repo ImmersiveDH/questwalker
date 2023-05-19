@@ -14,11 +14,30 @@
 
   $(document).ready(function() {
     console.log("Questwalker theme ready.");
-    initLeaflet();
+    // initLeaflet();
+    getTourJSON();
   });
 
 
-  function initLeaflet() {
+  // For tours
+  function getTourJSON() {
+    var uuid_of_this_node = $('.page-node-type-tour article').data('uuid');
+    if (uuid_of_this_node !== undefined) {
+      // console.log(uuid_of_this_node);
+      var json_to_import = '/jsonapi/node/tour/' + uuid_of_this_node + '?include=field_locations';
+      var json_response = $.getJSON(json_to_import, function() {
+      }).done(function() {
+        // console.log(json_response.responseJSON);
+        initLeaflet(json_response.responseJSON);
+      });
+    }
+    else {
+      // there isn't a UUID assigned here.
+    }
+  }
+
+
+  function initLeaflet(json_locations) {
     if ($('.view-locations-on-this-tour-leaflet').length > 0) {
       console.log("We are on a Tour node and can see the list of Location nodes.");
 
@@ -44,21 +63,36 @@
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       }).addTo(leaflet_map);
 
+
+
+
+      // NEW
+      // console.log(json_locations);
+      json_locations.included.forEach(drawLocationFromJSON);
+      function drawLocationFromJSON(location) {
+        var location_title = location.attributes.title;
+        var location_body;
+        // Todo: add other field types here.
+
+        if (location.field_coordinates.length > 1) {
+          
+        }
+        // todo: iterate through this part.
+        // var location_lat = location.field_coordinates.
+        // var location_long;
+        // var location_type = location,;
+
+
+      }
+      // END NEW
+
+
+
       // 4. Iterate through markers and add to map.
       var marker_locations = [];
       // var number_of_locations = $('.view-locations-on-this-tour-leaflet .views-row').length;
       $('.view-locations-on-this-tour-leaflet .views-row').each(function() {
         var location_title = $(this).find('.views-field-title').text().trim();
-        // var lat_and_long = $(this).find('.views-field-field-coordinates div').text().trim().split(',');
-        // marker_locations.push(lat_and_long);
-        // console.log("Lat and long: " + lat_and_long[0]);
-        // var marker = new L.marker([lat_and_long[0], lat_and_long[1]])
-        //   .addTo(map)
-        //   .bindPopup(location_title)
-        //   .on('click', function(e) {
-        //     console.log(e.latlng);
-        //   });
-
 
         // Remember that GeoJSON does Longitude, Latitude, and Leaflet wants Latitude, Longitude!
         var coordinates_geojson = JSON.parse($(this).find('.views-field-field-coordinates-1').text().trim());
@@ -119,6 +153,11 @@
         $('body').toggleClass('leaflet-full-viewport');
       }).addTo(leaflet_map);
 
+      // 8. Add the compass.
+      // L.control.compass().addTo(leaflet_map);
+      // todo: make it rotate the map based on this.
+      // (Yes, that is super, super complicated.)
+
 
       // 9. Resize the map when its container resizes.
       const resizeObserver = new ResizeObserver(() => {
@@ -132,8 +171,6 @@
       // markercluster.addLayer(marker_locations);
       // leaflet_map.addLayer(markercluster);
     }
-
-
     // TODO: insert other cases where we would want to initialize Leaflet
   }
 
@@ -157,6 +194,4 @@
       resetView();
     }
   });
-
-
 })(jQuery, Drupal, once);

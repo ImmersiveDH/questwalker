@@ -4,3 +4,9 @@
  * @file
  * Questwalker Bootstrap theme file.
  */
+
+
+// Adds the UUID of the current node to the theme.
+function questwalker_bootstrap_preprocess_node(&$variables) {
+  $variables['attributes']['data-uuid'] = $variables['node']->uuid->value;
+}
