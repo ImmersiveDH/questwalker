@@ -10921,6 +10921,7 @@ a > .ck-content code {
 .ck-content main {
   margin-top: 2rem;
   margin-bottom: 4rem;
+  flex: 1;
 }
 .ck-content .region-sidebar-first,
 .ck-content .region-sidebar-second,

@@ -126,3 +126,9 @@ set footer_classes = ' ' ~
   </div>
 </footer>
 {% endif %}
+
+{% if page.settings %}
+<div id="page-settings">
+  {{ page.settings }}
+</div>
+{% endif %}

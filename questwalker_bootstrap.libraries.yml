@@ -18,6 +18,7 @@ global-styling:
     libraries/leaflet.resetview/dist/L.Control.ResetView.min.js: {}
     libraries/leaflet.easybutton/src/easy-button.js: {}
     libraries/leaflet.compass/src/leaflet-compass.js: {}
+    libraries/stamen.maps/tile.stamen.js: {}
     js/scripts.js: {}
   dependencies:
     - core/drupal

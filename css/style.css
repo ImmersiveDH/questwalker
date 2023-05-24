@@ -12757,6 +12757,7 @@ code {
 main {
   margin-top: 2rem;
   margin-bottom: 4rem;
+  flex: 1;
 }
 
 .region-sidebar-first,
