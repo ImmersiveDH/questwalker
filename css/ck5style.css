@@ -11031,5 +11031,94 @@ a > .ck-content code {
 .ck-content .leaflet-map-pane {
   transform: rotateX(45deg);
 }
+.ck-content .view-locations-on-this-tour .views-row {
+  padding: 10px;
+  border-bottom: 1px solid black;
+  margin-bottom: 10px;
+  position: relative;
+}
+.ck-content .view-locations-on-this-tour .views-row.active, .ck-content .view-locations-on-this-tour .media-library-view--widget .view-header a.views-row.is-active, .ck-content .media-library-view--widget .view-header .view-locations-on-this-tour a.views-row.is-active {
+  background-color: rgba(255, 0, 0, 0.15);
+}
+.ck-content .view-locations-on-this-tour .views-row:last-child {
+  border-bottom: 0;
+}
+.ck-content .view-locations-on-this-tour .views-row .views-field-edit-node a {
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  display: block;
+  font-size: 0.8em;
+  line-height: 1em;
+}
+.ck-content .view-locations-on-this-tour .views-row .views-field-edit-node a:link, .ck-content .view-locations-on-this-tour .views-row .views-field-edit-node a:visited {
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.ck-content .view-locations-on-this-tour .views-row .views-field-edit-node a:active, .ck-content .view-locations-on-this-tour .views-row .views-field-edit-node a:focus, .ck-content .view-locations-on-this-tour .views-row .views-field-edit-node a:hover {
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.ck-content .view-locations-on-this-tour .views-row .views-field-edit-node a:link, .ck-content .view-locations-on-this-tour .views-row .views-field-edit-node a:visited {
+  color: #fff;
+  text-decoration: none;
+}
+.ck-content .view-locations-on-this-tour .views-row .views-field-edit-node a:active, .ck-content .view-locations-on-this-tour .views-row .views-field-edit-node a:focus, .ck-content .view-locations-on-this-tour .views-row .views-field-edit-node a:hover {
+  text-decoration: none;
+}
+.ck-content .view-locations-on-this-tour .views-field-field-coordinates,
+.ck-content .view-locations-on-this-tour .views-field-uuid {
+  display: none;
+}
+@media (min-width: 992px) {
+  .ck-content .node-form {
+    margin: 0;
+  }
+}
+.ck-content .node-form > div {
+  width: 100%;
+  float: left;
+}
+.ck-content #edit-field-locations-wrapper > div {
+  width: 50%;
+  float: left;
+}
+.ck-content #user-register-form #edit-user-picture-wrapper {
+  display: none;
+}
+body.admin .ck-content #user-register-form #edit-user-picture-wrapper {
+  display: revert;
+  border: 1px solid red;
+}
+.ck-content .field--type-text-with-summary > .text-format-wrapper > div:last-child {
+  display: none;
+}
+body.admin .ck-content .field--type-text-with-summary > .text-format-wrapper > div:last-child {
+  display: revert;
+  border: 1px solid red;
+}
+.ck-content label {
+  font-weight: bold;
+}
+.ck-content #qrcode {
+  padding: 10px;
+}
+
+.ck-rounded-corners .ck.ck-editor__top .ck-sticky-panel .ck-toolbar,
+.ck.ck-editor__top .ck-sticky-panel .ck-toolbar.ck-rounded-corners {
+  background-color: rgb(225, 225, 225);
+}
+
+.ck-content {
+  min-height: 200px;
+}
+
+.filter-guidelines-plain_text .tips {
+  padding-left: 1rem;
+}
 
 /*# sourceMappingURL=ck5style.css.map */

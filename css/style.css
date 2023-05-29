@@ -12879,4 +12879,87 @@ fieldset {
   transform: rotateX(45deg);
 }
 
+.view-locations-on-this-tour .views-row {
+  padding: 10px;
+  border-bottom: 1px solid black;
+  margin-bottom: 10px;
+  position: relative;
+}
+.view-locations-on-this-tour .views-row.active, .view-locations-on-this-tour .media-library-view--widget .view-header a.views-row.is-active, .media-library-view--widget .view-header .view-locations-on-this-tour a.views-row.is-active {
+  background-color: rgba(255, 0, 0, 0.15);
+}
+.view-locations-on-this-tour .views-row:last-child {
+  border-bottom: 0;
+}
+.view-locations-on-this-tour .views-row .views-field-edit-node a {
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  display: block;
+  font-size: 0.8em;
+  line-height: 1em;
+}
+.view-locations-on-this-tour .views-row .views-field-edit-node a:link, .view-locations-on-this-tour .views-row .views-field-edit-node a:visited {
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.view-locations-on-this-tour .views-row .views-field-edit-node a:active, .view-locations-on-this-tour .views-row .views-field-edit-node a:focus, .view-locations-on-this-tour .views-row .views-field-edit-node a:hover {
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.view-locations-on-this-tour .views-row .views-field-edit-node a:link, .view-locations-on-this-tour .views-row .views-field-edit-node a:visited {
+  color: #fff;
+  text-decoration: none;
+}
+.view-locations-on-this-tour .views-row .views-field-edit-node a:active, .view-locations-on-this-tour .views-row .views-field-edit-node a:focus, .view-locations-on-this-tour .views-row .views-field-edit-node a:hover {
+  text-decoration: none;
+}
+.view-locations-on-this-tour .views-field-field-coordinates,
+.view-locations-on-this-tour .views-field-uuid {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .node-form {
+    margin: 0;
+  }
+}
+.node-form > div {
+  width: 100%;
+  float: left;
+}
+
+#edit-field-locations-wrapper > div {
+  width: 50%;
+  float: left;
+}
+
+#user-register-form #edit-user-picture-wrapper {
+  display: none;
+}
+body.admin #user-register-form #edit-user-picture-wrapper {
+  display: revert;
+  border: 1px solid red;
+}
+
+.field--type-text-with-summary > .text-format-wrapper > div:last-child {
+  display: none;
+}
+body.admin .field--type-text-with-summary > .text-format-wrapper > div:last-child {
+  display: revert;
+  border: 1px solid red;
+}
+
+label {
+  font-weight: bold;
+}
+
+#qrcode {
+  padding: 10px;
+}
+
 /*# sourceMappingURL=style.css.map */

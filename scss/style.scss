@@ -8,6 +8,7 @@
 // Include bootstrap.
 @import '../../../../themes/contrib/bootstrap5/scss/style';
 
+@import 'mixins';
 
 // Fix fonts.
 @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,600;1,400');
@@ -181,3 +182,82 @@ fieldset {
 ////////////////
 // End 3D map //
 ////////////////
+
+
+
+
+// "Locations on this tour" block
+.view-locations-on-this-tour {
+  .views-row {
+    &.active {
+      background-color: rgba(255,0,0,0.15);
+    }
+
+    padding: 10px;
+    border-bottom: 1px solid black;
+    margin-bottom: 10px;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    @include edit_button();
+  }
+
+  .views-field-field-coordinates,
+  .views-field-uuid {
+    display: none;
+  }
+}
+
+// format forms
+.node-form {
+  @media (min-width: 992px) {
+    margin: 0;
+  }
+
+  > div {
+    width: 100%;
+    float: left;
+  }
+}
+
+// Handle inline editor for locations in a tour
+#edit-field-locations-wrapper > div {
+  width: 50%;
+  float: left;
+}
+// end forms
+
+
+
+// Start user registration form (/user/register)
+#user-register-form {
+  // Don't give users the option of adding their profile pic before they've registered their account.
+  // Todo: surely there's a better way of doing this, right?
+  #edit-user-picture-wrapper {
+    @include hideExceptForAdmin();
+  }
+}
+// End user registration form
+/////////////////////////////
+
+
+.field--type-text-with-summary {
+  > .text-format-wrapper > div:last-child {
+    @include hideExceptForAdmin();
+  }
+}
+// End hiding admin features.
+
+
+// Typography
+label {
+  font-weight: bold;
+}
+
+
+// QRcode.js
+#qrcode {
+  padding: 10px;
+}

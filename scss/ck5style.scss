@@ -1,3 +1,21 @@
+@import 'variables_drupal';
+@import 'variables_bootstrap';
+
 .ck-content {
   @import './style.scss';
+}
+
+// force CKeditor to be larger; by default, it's only one line high
+.ck-rounded-corners .ck.ck-editor__top .ck-sticky-panel .ck-toolbar,
+.ck.ck-editor__top .ck-sticky-panel .ck-toolbar.ck-rounded-corners {
+  background-color: $color_grey_light;
+}
+
+.ck-content {
+  min-height: 200px;
+}
+
+// for admin users only: the "no HTML tags allowed/lines break automatically/etc" help text under Plain Text textareas:
+.filter-guidelines-plain_text .tips {
+  padding-left: 1rem;
 }
