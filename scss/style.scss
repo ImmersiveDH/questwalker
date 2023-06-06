@@ -261,3 +261,29 @@ label {
 #qrcode {
   padding: 10px;
 }
+// end QR codes
+
+
+// Custom CSS here and there.
+.field--name-field-css {
+  @include hideExceptForAdmin();
+}
+
+
+
+
+// Footer
+footer {
+  .block {
+    a {
+      @include link_always_underline($color_white, $color_transparent, $color_white, $color_transparent); 
+    }
+  }
+
+  p {
+    // &:first-child,
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

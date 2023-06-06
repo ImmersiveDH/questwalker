@@ -12962,4 +12962,36 @@ label {
   padding: 10px;
 }
 
+.field--name-field-css {
+  display: none;
+}
+body.admin .field--name-field-css {
+  display: revert;
+  border: 1px solid red;
+}
+
+footer .block a {
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0);
+  text-decoration: underline;
+}
+footer .block a:link, footer .block a:visited {
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0);
+}
+footer .block a:active, footer .block a:focus, footer .block a:hover {
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0);
+}
+footer .block a:link, footer .block a:visited {
+  color: #fff;
+  text-decoration: underline;
+}
+footer .block a:active, footer .block a:focus, footer .block a:hover {
+  text-decoration: underline;
+}
+footer p:last-child {
+  margin-bottom: 0;
+}
+
 /*# sourceMappingURL=style.css.map */

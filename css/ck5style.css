@@ -11107,6 +11107,36 @@ body.admin .ck-content .field--type-text-with-summary > .text-format-wrapper > d
 .ck-content #qrcode {
   padding: 10px;
 }
+.ck-content .field--name-field-css {
+  display: none;
+}
+body.admin .ck-content .field--name-field-css {
+  display: revert;
+  border: 1px solid red;
+}
+.ck-content footer .block a {
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0);
+  text-decoration: underline;
+}
+.ck-content footer .block a:link, .ck-content footer .block a:visited {
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0);
+}
+.ck-content footer .block a:active, .ck-content footer .block a:focus, .ck-content footer .block a:hover {
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0);
+}
+.ck-content footer .block a:link, .ck-content footer .block a:visited {
+  color: #fff;
+  text-decoration: underline;
+}
+.ck-content footer .block a:active, .ck-content footer .block a:focus, .ck-content footer .block a:hover {
+  text-decoration: underline;
+}
+.ck-content footer p:last-child {
+  margin-bottom: 0;
+}
 
 .ck-rounded-corners .ck.ck-editor__top .ck-sticky-panel .ck-toolbar,
 .ck.ck-editor__top .ck-sticky-panel .ck-toolbar.ck-rounded-corners {

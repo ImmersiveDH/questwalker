@@ -14,6 +14,8 @@
 
   $(document).ready(function() {
     console.log("Questwalker theme ready.");
+
+    stylePage($('.field--name-field-css .field__item').text());
     addQRcode();
     startTourNodes();
     startTourEditor();
@@ -25,7 +27,18 @@
     console.log('London and Paris are ' + roundDistanceToKilometres(distance_between_london_and_paris) + ' kilometres and ' + roundDistanceToMetres(distance_between_london_and_paris) + ' metres apart.');
     // console.log(Math.round(distance_between_london_and_paris*1000)/1000);  //displays 343.548
     //end delete this
+
   });
+
+  // add the CSS.
+  function stylePage(css_code) {
+    if (css_code != undefined) {
+      $('head').append('<style>' + css_code + '</style>');
+    }
+    else {
+      console.log("Warning: I tried to add CSS code, but didn't get any.");
+    }
+  }
 
   // Run on the "view" version of tour nodes.
   function startTourNodes() {
@@ -160,7 +173,6 @@
           // Todo: add other field types here.
 
           if (location_type == "Point") {
-            // console.log(location_title + " is a point. Adding a marker at " + coordinates_geojson.coordinates[1], coordinates_geojson.coordinates[0]);
             var location_lat = location.attributes.field_coordinates.lat;
             var location_long = location.attributes.field_coordinates.lon;
             console.log("Adding point marker at " + location_lat + ", " + location_long);
@@ -186,9 +198,8 @@
             polygon_data = polygon_data.replaceAll('))','');
             polygon_data = polygon_data.replaceAll(', ','|||'); 
             polygon_data = polygon_data.replaceAll(' ','|');  //todo: should this be |||| ? 
-            // console.log(polygon_data);
-
             var polygon_data_array =  polygon_data.split('|||');
+            
             // // GeoJSON expects Longitude/Latitude, so we have to iterate through the latlng array to fix it.
             for (let i = 0; i < polygon_data_array.length; i++) {
               // console.log("Reformatting lat/long " + latlng[0][i]);
@@ -362,7 +373,7 @@
         }
 
         // 6. Add the "Zoom to current location" button.
-        // L.control.locate().addTo(leaflet_map);
+        L.control.locate().addTo(leaflet_map);
 
         // 7. Add the "fill viewport" button
         L.easyButton('fa-window-maximize', function(btn, map){
@@ -376,6 +387,7 @@
 
 
         // 9. Resize the map when its container resizes.
+        //    (For example. when the browser is resized or the screen rotates.)
         const resizeObserver = new ResizeObserver(() => {
           leaflet_map.invalidateSize();
         });
@@ -383,8 +395,13 @@
 
         addLeafletSidebar();
         // Add the sidebar to the map.
-        var sidebar = L.control.sidebar('leaflet-sidebar').addTo(leaflet_map);
-
+        // var sidebar = L.control.sidebar('leaflet-sidebar').addTo(leaflet_map);
+        var sidebar = L.control.sidebar({
+          autopan: true,       // whether to maintain the centered map point when opening the sidebar
+          closeButton: true,    // whether t add a close button to the panes
+          container: 'leaflet-sidebar', // the DOM container or #ID of a predefined sidebar container that should be used
+          position: 'left',     // left or right
+      }).addTo(leaflet_map);
 
         // Add MarkerCluster
         // var markercluster = L.markerClusterGroup();
@@ -399,54 +416,21 @@
   }
 
   function addLeafletSidebar() {
+    // Add the Leaflet sidebar container.
+    $('#map-inner').before('<div id="leaflet-sidebar" class="leaflet-sidebar collapsed"></div>');
 
-    // <div id="sidebar" class="sidebar collapsed">
-    //   <!-- Nav tabs -->
-    //   <div class="sidebar-tabs">
-    //     <ul role="tablist">
-    //       <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
-    //       <li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li>
-    //       <li class="disabled"><a href="#messages" role="tab"><i class="fa fa-envelope"></i></a></li>
-    //       <li><a href="https://github.com/Turbo87/sidebar-v2" role="tab" target="_blank"><i class="fa fa-github"></i></a></li>
-    //     </ul>
+    // Add the leaflet sidebar tabs.
+    $('#leaflet-sidebar').append('<div class="leaflet-sidebar-tabs"><ul role="tablist"><li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li><li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li><li class="disabled"><a href="#messages" role="tab"><i class="fa fa-envelope"></i></a></li><li><a href="https://github.com/Turbo87/sidebar-v2" role="tab" target="_blank"><i class="fa fa-github"></i></a></li></ul><ul role="tablist"><li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li></ul></div>');
 
-    //     <ul role="tablist">
-    //       <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li>
-    //     </ul>
-    //   </div>
-
-    //   <!-- Tab panes -->
-    //   <div class="sidebar-content">
-    //     <div class="sidebar-pane" id="home">
-    //       <h1 class="sidebar-header">
-    //         sidebar-v2
-    //         <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
-    //       </h1>
-    //       <p>A responsive sidebar for mapping libraries like <a href="http://leafletjs.com/">Leaflet</a> or <a href="http://openlayers.org/">OpenLayers</a>.</p>
-
-    //       <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-
-    //       <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-
-    //       <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-
-    //       <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-    //     </div>
-    //     <div class="sidebar-pane" id="profile">
-    //       <h1 class="sidebar-header">Profile<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-    //     </div>
-
-    //     <div class="sidebar-pane" id="messages">
-    //       <h1 class="sidebar-header">Messages<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-    //     </div>
-    //     <div class="sidebar-pane" id="settings">
-    //       <h1 class="sdebar-header">Settings<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-    //     </div>
-    //   </div>
-    // </div>
+    // Add the leaflet sidebar content.
+    $('#leaflet-sidebar').append('<div class="leaflet-sidebar-content"></div>');
     
-    var sidebar = L.control.sidebar('leaflet-sidebar').addTo(leaflet_map);
-
+    // Add each pane to the sidebar. 
+    // todo: iterate through this stuff.
+    $('#leaflet-sidebar .leaflet-sidebar-content').append('<div class="leaflet-sidebar-pane" id="home"><h1 class="leaflet-sidebar-header">sidebar-v2<span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span></h1><p>A responsive sidebar for mapping libraries like <a href="http://leafletjs.com/">Leaflet</a> or <a href="http://openlayers.org/">OpenLayers</a>.</p></div>');
+    $('#leaflet-sidebar .leaflet-sidebar-content').append('<div class="leaflet-sidebar-pane" id="profile"><h1 class="leaflet-sidebar-header">Profile<span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span></h1></div>');
+    $('#leaflet-sidebar .leaflet-sidebar-content').append('<div class="leaflet-sidebar-pane" id="messages"><h1 class="vsidebar-header">Messages<span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span></h1></div>');
+    $('#leaflet-sidebar .leaflet-sidebar-content').append('<div class="leaflet-sidebar-pane" id="settings"><h1 class="leaflet-sidebar-header">Settings<span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span></h1>');
   }
 
 
@@ -457,6 +441,11 @@
     // #lo
     // <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template"><i class="fas fa-code"></i><span> Template</span></div>
   }
+
+
+function testCSSinjection() {
+  $('body').attr('style', 'color: red !important;');
+}
 
 
   

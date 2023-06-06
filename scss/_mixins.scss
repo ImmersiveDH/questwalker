@@ -49,6 +49,23 @@
   }
 }
 
+@mixin link_always_underline($color: blue, $background: rgba(0,0,0,0), $color_hover: $color, $background_hover: $background) {
+  @include link($color, $background, $color_hover, $background_hover);
+  text-decoration: underline;
+
+  &:link,
+  &:visited {
+    color: $color;
+    text-decoration: underline;
+  }
+
+  &:active,
+  &:focus,
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 
 // Hide extraneous fields and elements
 @mixin hideExceptForAdmin() {
@@ -57,4 +74,18 @@
     display: revert;
     border: 1px solid red;
   }
+}
+
+
+@mixin underConstruction() {
+  content: '';
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 52px;
+  z-index: 10;
+  background-image: repeating-linear-gradient(-45deg, #ffb101, #ffb101 50px, #222 50px, #222 100px);
+  box-shadow: 0 -1px 3px #222;
+  overflow: visible;
 }

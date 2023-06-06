@@ -9,7 +9,7 @@ global-styling:
       libraries/leaflet.resetview/dist/L.Control.ResetView.min.css: {}
       libraries/leaflet.easybutton/src/easy-button.css: {}
       libraries/leaflet.compass/src/leaflet-compass.css: {}
-      libraries/leaflet.sidebar.v2/css/leaflet-sidebar.css: {}
+      libraries/leaflet.sidebar.v2.fork/css/leaflet-sidebar.css: {}
       css/style.css: {}
   js:
     libraries/leaflet/leaflet.js: {}
@@ -19,7 +19,7 @@ global-styling:
     libraries/leaflet.resetview/dist/L.Control.ResetView.min.js: {}
     libraries/leaflet.easybutton/src/easy-button.js: {}
     libraries/leaflet.compass/src/leaflet-compass.js: {}
-    libraries/leaflet.sidebar.v2/js/leaflet-sidebar.js: {}
+    libraries/leaflet.sidebar.v2.fork/js/leaflet-sidebar.js: {}
     libraries/stamen.maps/tile.stamen.js: {}
     libraries/qrcode.js/qrcode.js: {}
 
